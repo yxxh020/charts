@@ -7,7 +7,7 @@ import * as echarts from 'echarts';
   styleUrls: ['./charts.component.scss']
 })
 export class ChartsComponent implements AfterViewInit {
-  @ViewChild('chartContainer', { static: false }) chartContainer!: ElementRef;
+  @ViewChild('chartContainer', {static: false}) chartContainer!: ElementRef;
 
   ngAfterViewInit(): void {
     const chart = echarts.init(this.chartContainer.nativeElement);
@@ -31,17 +31,17 @@ export class ChartsComponent implements AfterViewInit {
       },
       radar: {
         indicator: [
-          { name: 'temp (°C)', max: 100 },
-          { name: 'pulse (bpm)', max: 200 },
-          { name: 'breath (bpm)', max: 50 },
-          { name: 'oxygen (%)', max: 100 },
-          { name: 'step', max: 10000 },
-          { name: 'stress', max: 100 }
+          {name: 'temp (°C)', max: 100},
+          {name: 'pulse (bpm)', max: 200},
+          {name: 'breath (bpm)', max: 50},
+          {name: 'oxygen (%)', max: 100},
+          {name: 'step', max: 10000},
+          {name: 'stress', max: 100}
         ],
         splitArea: {
           show: true,
           areaStyle: {
-            color: ['rgba(250, 250, 250, 0.6)', 'rgba(240, 240, 240, 0.6)']
+            color: ['transparent', 'transparent']
           }
         },
         axisLine: {
@@ -54,8 +54,9 @@ export class ChartsComponent implements AfterViewInit {
         splitLine: {
           show: true,
           lineStyle: {
-            color: '#ddd',
-            width: 1
+            color: '#bbb',
+            width: 1,
+            type: 'dashed'
           }
         }
       },
@@ -88,3 +89,4 @@ export class ChartsComponent implements AfterViewInit {
     chart.setOption(option);
   }
 }
+
