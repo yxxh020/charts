@@ -1,5 +1,7 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit, Renderer2 } from '@angular/core';
 import * as echarts from 'echarts';
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 
 @Component({
   selector: 'app-charts',
@@ -8,6 +10,8 @@ import * as echarts from 'echarts';
 })
 export class ChartsComponent implements AfterViewInit {
   @ViewChild('chartContainer', {static: false}) chartContainer!: ElementRef;
+
+  constructor(private renderer: Renderer2) {}
 
   ngAfterViewInit(): void {
     const chart = echarts.init(this.chartContainer.nativeElement);
@@ -88,5 +92,37 @@ export class ChartsComponent implements AfterViewInit {
 
     chart.setOption(option);
   }
-}
 
+  // ngOnInit() {
+  //   this.createRadarChart();
+  // }
+  //
+  // createRadarChart() {
+  //   const radarData = {
+  //     labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+  //     datasets: [
+  //       {
+  //         label: 'Dataset 1',
+  //         data: [10, 20, 30, 40, 50],
+  //         backgroundColor: 'rgba(75, 192, 192, 0.5)',
+  //         borderColor: 'rgba(75, 192, 192, 1)',
+  //         borderWidth: 1
+  //       }
+  //     ]
+  //   };
+  //
+  //   const radarOptions = {
+  //     responsive: true,
+  //     maintainAspectRatio: false
+  //   };
+  //
+  //   const canvas = this.renderer.createElement('canvas');
+  //   canvas.id = 'radarChart';
+  //   const ctx = canvas.getContext('2d');
+  //   this.renderer.appendChild(this.renderer.selectRootElement('#chartContainer'), canvas);
+  //   this.chart = new Chart(ctx, {
+  //     type: 'radar',
+  //     data: radarData,
+  //     options: radarOptions
+  //   });
+}

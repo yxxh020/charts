@@ -32,7 +32,7 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "allowedCommonJsDependencies": ["crypto"]
           },
           "configurations": {
             "production": {
