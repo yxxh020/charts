@@ -5,6 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChartsComponent } from './charts/charts.component';
 import { EchartsComponent } from './echarts/echarts.component';
+import * as PlotlyJS from 'plotly.js-dist-min';
+import { PlotlyModule } from 'angular-plotly.js';
+import { NgApexchartsModule } from "ng-apexcharts";
+
+PlotlyModule.plotlyjs = PlotlyJS;
 
 @NgModule({
   declarations: [
@@ -16,6 +21,8 @@ import { EchartsComponent } from './echarts/echarts.component';
     BrowserModule,
     AppRoutingModule,
     NgxEchartsModule.forRoot({echarts: () => import('echarts')}),
+    PlotlyModule,
+    NgApexchartsModule,
 
   ],
   providers: [],

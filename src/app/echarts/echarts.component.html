@@ -4,4 +4,17 @@
   <canvas  id="MyChart" >{{ chart }}</canvas>
 </div>
 
-<div #radarChart></div>
+<!--<div #radarChart></div>-->
+<plotly-plot
+  [data]="graph1.data"
+  [layout]="graph1.layout"
+  [useResizeHandler]="true">
+</plotly-plot>
+
+<plotly-plot
+  [data]="graph2.data"
+  [layout]="graph2.layout"
+  [useResizeHandler]="true">
+</plotly-plot>
+
+<p routerLink="/apex">apex</p>

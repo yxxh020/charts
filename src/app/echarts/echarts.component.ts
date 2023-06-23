@@ -3,13 +3,19 @@ import EChartsOption = echarts.EChartsOption;
 import * as Plotly from 'plotly.js';
 import Chart from 'chart.js/auto';
 
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
+};
 @Component({
   selector: 'app-echarts',
   templateUrl: './echarts.component.html',
   styleUrls: ['./echarts.component.scss']
 })
 export class EchartsComponent implements OnInit, AfterViewInit {
-  @ViewChild('radarChart', { static: false }) radarChart!: ElementRef;
+  // @ViewChild('radarChart', { static: false }) radarChart!: ElementRef;
 
   public chart: any;
 
@@ -95,31 +101,27 @@ export class EchartsComponent implements OnInit, AfterViewInit {
     const maxValues = [50, 200, 50, 100, 10000, 100];
     const dataValues = [37.2, 80, 12, 98, 8000, 60];
 
+    const scaledDataValues = dataValues.map((value, index) => {
+      const min = 0;
+      const max = maxValues[index];
+      const scaledValue = (value - min) / (max - min);
+      return scaledValue;
+    });
+
+    console.log('scaled',scaledDataValues);
+
     this.chart = new Chart('MyChart', {
       type: 'radar',
       data: {
         labels: labels,
         datasets: [{
           label: 'chart.js',
-          data: dataValues,
+          data:  scaledDataValues,
           borderColor: 'rgba(75, 192, 192, 1)',
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderWidth: 1
         }]
       },
-      options: {
-        scales: {
-          r: {
-            pointLabels: {
-            },
-            ticks: {
-              maxTicksLimit: 5,
-              // max: Math.max(...maxValues),
-              stepSize: 50
-            }
-          }
-        }
-      }
     });
   }
 
@@ -147,6 +149,26 @@ export class EchartsComponent implements OnInit, AfterViewInit {
     // Plotly.newPlot(this.radarChart.nativeElement, data, layout);
   }
 
-  //apexcharts
+  // plotly Line chart
+  graph1 = {
+    data: [
+      { x: [1, 2, 3, 4, 5], y: [1, 4, 9, 4, 1], type: 'scatter' },
+      { x: [1, 2, 3, 4, 5], y: [1, 3, 6, 9, 6], type: 'scatter' },
+      { x: [1, 2, 3, 4, 5], y: [1, 2, 4, 5, 6], type: 'scatter' },
+    ],
+    layout: {title: 'Some Data to Highlight'}
+  };
 
+  //plotly radar chart
+  graph2 = {
+    data: [
+      {
+        type: 'scatterpolar',
+        r: [1, 2, 3, 4, 5],
+        theta: ['A', 'B', 'C', 'D', 'E'],
+        fill: 'toself',
+        name: 'Series 1'
+      }],
+    layout: {title: 'plotly radar'}
+  }
 }

@@ -5,6 +5,7 @@ import { EchartsComponent } from "./echarts/echarts.component";
 
 const routes: Routes = [
   {path:'', component: EchartsComponent},
+  {path:'apex', component: ChartsComponent},
 ];
 
 @NgModule({
