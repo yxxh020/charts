@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import * as moment from "moment";
+
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -24,6 +26,23 @@ export type BarChartOptions = {
   chart: ApexChart;
   title: ApexTitleSubtitle;
   plotOptions: ApexPlotOptions;
+  fill: ApexFill;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  dataLabels: ApexDataLabels;
+  tooltip: ApexTooltip;
+};
+
+
+export type TimeLineOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  legend: ApexLegend;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  plotOptions: ApexPlotOptions;
+  title: ApexTitleSubtitle;
 };
 
 @Component({
@@ -35,9 +54,10 @@ export class ChartsComponent implements OnInit {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions> | any;
   public barChartOptions: Partial<BarChartOptions> | any;
+  public timeLineOptions: Partial<TimeLineOptions> | any;
 
   dataValues = [37.2, 80, 12, 98, 8000, 60];
-  maxValues = [50, 200, 20, 100, 10000, 100];
+  maxValues = [50, 200, 30, 100, 10000, 100];
   scaledDataValues = this.dataValues.map((value, index) => {
     const min = 0;
     const max = this.maxValues[index];
@@ -55,20 +75,21 @@ export class ChartsComponent implements OnInit {
       ],
       chart: {
         height: 350,
-        type: "radar"
+        type: "radar",
+        toolbar: false
       },
       title: {
-        text: "Lifelog data"
+        text: "Radar Chart"
       },
       xaxis: {
-        categories: ['temp (°C)', 'pulse (bpm)', 'breath (bpm)', 'oxygen (%)', 'step', 'stress']
+        categories: ['temp (°C)', 'pulse (bpm)', 'breath', 'oxygen (%)', 'step', 'stress']
       },
       yaxis: {
         show: false
       },
       fill: {
         opacity: 0.6,
-        colors: ['#DC143C']
+        colors: ['#DE63C5']
       },
       markers: {
         size: 0
@@ -76,7 +97,7 @@ export class ChartsComponent implements OnInit {
       stroke: {
         show: true,
         width: 2,
-        colors: ['#DC143C'],
+        colors: ['#DE63C5'],
         dashArray: 0
       },
       plotOptions: {
@@ -93,12 +114,30 @@ export class ChartsComponent implements OnInit {
       series: [
         {
           name: 'test 2',
-          data: [10, 20, 30, 40, 50, 60]
+          data: this.scaledDataValues,
+          color: function({ value, seriesIndex, dataPointIndex }: any) {
+            // 정상 범위에 해당하는 값을 체크
+            if (dataPointIndex === 0 && value >= 0.38) { // temp(°C)
+              return '#FF0000'; // 빨간색으로 설정
+            } else if (dataPointIndex === 1 && value >= 0.5) { // pulse(bpm)
+              return '#FF0000';
+            } else if (dataPointIndex === 2 && value >= 0.8) { // breath
+              return '#FF0000';
+            } else if (
+              dataPointIndex === 3 &&
+              (value <= 0.9 || value >= 1) // oxygen(%)
+            ) {
+              return '#FF0000';
+            } else {
+              return '#00BFFF'; // default color
+            }
+          }
         }
       ],
       chart: {
         height: 350,
-        type: 'bar'
+        type: 'bar',
+        toolbar: false
       },
       title: {
         text: 'Bar Chart'
@@ -108,8 +147,126 @@ export class ChartsComponent implements OnInit {
           horizontal: true
         }
       },
+      fill: {
+        colors: '#00BFFF'
+      },
+      xaxis: {
+        categories: ['temp (°C)', 'pulse (bpm)', 'breath', 'oxygen (%)', 'step', 'stress'],
+        labels: {
+          show: false
+        }
+      },
+      yaxis: {
+      },
+      dataLabels: {
+        enabled: false
+      },
+      tooltip: {
+        enabled: false
+      }
     }
 
+    this.timeLineOptions = {
+      series: [
+        {
+          name: "Bob",
+          data: [
+            {
+              x: "Design",
+              y: [
+                new Date("2019-03-05").getTime(),
+                new Date("2019-03-08").getTime()
+              ]
+            },
+            {
+              x: "Code",
+              y: [
+                new Date("2019-03-08").getTime(),
+                new Date("2019-03-11").getTime()
+              ]
+            },
+            {
+              x: "Test",
+              y: [
+                new Date("2019-03-11").getTime(),
+                new Date("2019-03-16").getTime()
+              ]
+            }
+          ]
+        },
+        {
+          name: "Joe",
+          data: [
+            {
+              x: "Design",
+              y: [
+                new Date("2019-03-02").getTime(),
+                new Date("2019-03-05").getTime()
+              ]
+            },
+            {
+              x: "Code",
+              y: [
+                new Date("2019-03-06").getTime(),
+                new Date("2019-03-09").getTime()
+              ]
+            },
+            {
+              x: "Test",
+              y: [
+                new Date("2019-03-10").getTime(),
+                new Date("2019-03-19").getTime()
+              ]
+            }
+          ]
+        }
+      ],
+
+      chart: {
+        height: 350,
+        type: "rangeBar",
+        toolbar: {
+          show: false
+        }
+      },
+      title: {
+        text: 'TimeLine'
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+
+      dataLabels: {
+        enabled: true,
+        formatter: function (val: any, opts: any) {
+          var seriesName = opts.w.config.series[opts.seriesIndex].name;
+          var a = moment(val[0]);
+          var b = moment(val[1]);
+          var diff = b.diff(a, "days");
+          return seriesName + ": " + diff + (diff > 1 ? " days" : " day");
+        }
+      },
+
+      xaxis: {
+        type: "datetime",
+        position: "top"
+      },
+
+      yaxis: {
+        labels: {
+          show: true,
+          formatter: function (value: any) {
+            return value === 'Bob' ? 'Bob' : 'Joe';
+          }
+        }
+      },
+
+      legend: {
+        position: 'top'
+      }
+  };
   }
 
   ngOnInit(): void {}

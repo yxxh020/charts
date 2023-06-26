@@ -97,7 +97,7 @@ export class EchartsComponent implements OnInit, AfterViewInit {
   }
   //chartjs: The radar chart supports only a single scale.
   createChart() {
-    const labels = ['temp (°C)', 'pulse (bpm)', 'breath (bpm)', 'oxygen (%)', 'step', 'stress'];
+    const labels = ['temp (°C)', 'pulse (bpm)', 'breath', 'oxygen (%)', 'step', 'stress'];
     const maxValues = [50, 200, 20, 100, 10000, 100];
     const dataValues = [37.2, 80, 12, 98, 8000, 60];
 

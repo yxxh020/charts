@@ -1,24 +1,44 @@
 <p>apex charts</p>
 
+
+<div style="display: flex; justify-content: center;">
+  <div style="text-align:center; width: 70vh;">
+    <apx-chart
+      [series]="barChartOptions.series"
+      [chart]="barChartOptions.chart"
+      [title]="barChartOptions.title"
+      [plotOptions]="barChartOptions.plotOptions"
+      [fill]="barChartOptions.fill"
+      [xaxis]="barChartOptions.xaxis"
+      [yaxis]="barChartOptions.yaxis"
+      [dataLabels]="barChartOptions.dataLabels"
+      [tooltip]="barChartOptions.tooltip"
+    ></apx-chart>
+  </div>
+  <div>
+    <apx-chart
+      #chart
+      [series]="chartOptions.series"
+      [chart]="chartOptions.chart"
+      [xaxis]="chartOptions.xaxis"
+      [yaxis]="chartOptions.yaxis"
+      [title]="chartOptions.title"
+      [fill]="chartOptions.fill"
+      [markers]="chartOptions.markers"
+      [stroke]="chartOptions.stroke"
+      [plotOptions]="chartOptions.plotOptions"
+    ></apx-chart>
+  </div>
+</div>
 <div style="text-align:center">
   <apx-chart
-    #chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [xaxis]="chartOptions.xaxis"
-    [yaxis]="chartOptions.yaxis"
-    [title]="chartOptions.title"
-    [fill]="chartOptions.fill"
-    [markers]="chartOptions.markers"
-    [stroke]="chartOptions.stroke"
-    [plotOptions]="chartOptions.plotOptions"
-  ></apx-chart>
-</div>
-<div  style="text-align:center">
-  <apx-chart
-    [series]="barChartOptions.series"
-    [chart]="barChartOptions.chart"
-    [title]="barChartOptions.title"
-    [plotOptions]="barChartOptions.plotOptions"
+    [series]="timeLineOptions.series"
+    [chart]="timeLineOptions.chart"
+    [xaxis]="timeLineOptions.xaxis"
+    [yaxis]="timeLineOptions.yaxis"
+    [plotOptions]="timeLineOptions.plotOptions"
+    [legend]="timeLineOptions.legend"
+    [dataLabels]="timeLineOptions.dataLabels"
+    [title]="timeLineOptions.title"
   ></apx-chart>
 </div>
