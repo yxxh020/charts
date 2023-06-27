@@ -118,7 +118,7 @@ export class ChartsComponent implements OnInit {
           color: function({ value, seriesIndex, dataPointIndex }: any) {
             // 정상 범위에 해당하는 값을 체크
             if (dataPointIndex === 0 && value >= 0.38) { // temp(°C)
-              return '#FF0000'; // 빨간색으로 설정
+              return '#FF0000';
             } else if (dataPointIndex === 1 && value >= 0.5) { // pulse(bpm)
               return '#FF0000';
             } else if (dataPointIndex === 2 && value >= 0.8) { // breath
@@ -169,53 +169,53 @@ export class ChartsComponent implements OnInit {
     this.timeLineOptions = {
       series: [
         {
-          name: "Bob",
+          name: "현장연구",
           data: [
             {
-              x: "Design",
+              x: "Bob",
               y: [
-                new Date("2019-03-05").getTime(),
-                new Date("2019-03-08").getTime()
+                new Date("2023-03-05").getTime(),
+                new Date("2023-03-08").getTime()
               ]
             },
             {
-              x: "Code",
+              x: "Joe",
               y: [
-                new Date("2019-03-08").getTime(),
-                new Date("2019-03-11").getTime()
+                new Date("2023-03-08").getTime(),
+                new Date("2023-03-11").getTime()
               ]
             },
             {
-              x: "Test",
+              x: "kate",
               y: [
-                new Date("2019-03-11").getTime(),
-                new Date("2019-03-16").getTime()
+                new Date("2023-03-11").getTime(),
+                new Date("2023-03-16").getTime()
               ]
             }
           ]
         },
         {
-          name: "Joe",
+          name: "기지연구",
           data: [
             {
-              x: "Design",
+              x: "Bob",
               y: [
-                new Date("2019-03-02").getTime(),
-                new Date("2019-03-05").getTime()
+                new Date("2023-03-02").getTime(),
+                new Date("2023-03-05").getTime()
               ]
             },
             {
-              x: "Code",
+              x: "Joe",
               y: [
-                new Date("2019-03-06").getTime(),
-                new Date("2019-03-09").getTime()
+                new Date("2023-03-06").getTime(),
+                new Date("2023-03-09").getTime()
               ]
             },
             {
-              x: "Test",
+              x: "kate",
               y: [
-                new Date("2019-03-10").getTime(),
-                new Date("2019-03-19").getTime()
+                new Date("2023-03-10").getTime(),
+                new Date("2023-03-19").getTime()
               ]
             }
           ]
@@ -241,12 +241,8 @@ export class ChartsComponent implements OnInit {
       dataLabels: {
         enabled: true,
         formatter: function (val: any, opts: any) {
-          var seriesName = opts.w.config.series[opts.seriesIndex].name;
-          var a = moment(val[0]);
-          var b = moment(val[1]);
-          var diff = b.diff(a, "days");
-          return seriesName + ": " + diff + (diff > 1 ? " days" : " day");
-        }
+          return opts.w.config.series[opts.seriesIndex].name;
+        },
       },
 
       xaxis: {
@@ -256,16 +252,12 @@ export class ChartsComponent implements OnInit {
 
       yaxis: {
         labels: {
-          show: true,
-          formatter: function (value: any) {
-            return value === 'Bob' ? 'Bob' : 'Joe';
-          }
+          show: true
         }
       },
-
-      legend: {
-        position: 'top'
-      }
+      // legend: {
+      //   position: 'top'
+      // }
   };
   }
 
