@@ -1,13 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import * as moment from "moment";
 
-import {
-  ChartComponent,
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexTitleSubtitle,
-} from "ng-apexcharts";
+import { ApexAxisChartSeries, ApexChart, ApexTitleSubtitle, ApexXAxis, ChartComponent, } from "ng-apexcharts";
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;

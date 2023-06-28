@@ -23,7 +23,6 @@ PlotlyModule.plotlyjs = PlotlyJS;
     NgxEchartsModule.forRoot({echarts: () => import('echarts')}),
     PlotlyModule,
     NgApexchartsModule,
-
   ],
   providers: [],
   bootstrap: [AppComponent]

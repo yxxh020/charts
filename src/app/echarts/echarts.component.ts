@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import EChartsOption = echarts.EChartsOption;
-import * as Plotly from 'plotly.js';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import EChartsOption = echarts.EChartsOption;
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
